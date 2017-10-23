@@ -8,5 +8,7 @@
 
 import Foundation
 
-print("Hello, World!")
+var newGame = Team()
+newGame.start()
+
 
