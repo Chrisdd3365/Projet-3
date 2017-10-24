@@ -8,7 +8,6 @@
 
 import Foundation
 
-var newGame = Team()
+var newGame = UserInterface()
 newGame.start()
-
 

@@ -29,6 +29,8 @@ class Character {
     }
     
     func showCharacter() {
+        print(" ")
+        print("==================================")
         print("Character's name: \(nameCharacter)"
             + "\nClasse: \(classe)"
             + "\nHP: \(hp)"

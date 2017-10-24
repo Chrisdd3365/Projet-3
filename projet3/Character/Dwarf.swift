@@ -11,6 +11,6 @@ import Foundation
 class Dwarf: Character {
     
     init() {
-        super.init(nameCharacter: "" , classe: "Dwarf", hp: 60, mp: 0, atk: 25, def: 5 , mag: 0)
+        super.init(nameCharacter: "", classe: "Dwarf", hp: 60, mp: 0, atk: 25, def: 5 , mag: 0)
     }
 }

@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		950D93791F9F7CB400106146 /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950D93781F9F7CB400106146 /* UserInterface.swift */; };
 		957E6EA91F9E5623003A1449 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EA81F9E5623003A1449 /* main.swift */; };
-		957E6EB61F9E57C2003A1449 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EB51F9E57C2003A1449 /* Team.swift */; };
 		957E6EB81F9E5862003A1449 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EB71F9E5862003A1449 /* Character.swift */; };
 		957E6EBA1F9E58AC003A1449 /* Warrior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EB91F9E58AC003A1449 /* Warrior.swift */; };
 		957E6EBC1F9E58D1003A1449 /* Mage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EBB1F9E58D1003A1449 /* Mage.swift */; };
 		957E6EBE1F9E58EA003A1449 /* Giant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EBD1F9E58EA003A1449 /* Giant.swift */; };
 		957E6EC01F9E591E003A1449 /* Dwarf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957E6EBF1F9E591E003A1449 /* Dwarf.swift */; };
+		959D73D31F9F95B3002EE7A0 /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959D73D21F9F95B3002EE7A0 /* Name.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,14 +30,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		950D93781F9F7CB400106146 /* UserInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
 		957E6EA51F9E5623003A1449 /* projet3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = projet3; sourceTree = BUILT_PRODUCTS_DIR; };
 		957E6EA81F9E5623003A1449 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		957E6EB51F9E57C2003A1449 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		957E6EB71F9E5862003A1449 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		957E6EB91F9E58AC003A1449 /* Warrior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Warrior.swift; sourceTree = "<group>"; };
 		957E6EBB1F9E58D1003A1449 /* Mage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mage.swift; sourceTree = "<group>"; };
 		957E6EBD1F9E58EA003A1449 /* Giant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Giant.swift; sourceTree = "<group>"; };
 		957E6EBF1F9E591E003A1449 /* Dwarf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dwarf.swift; sourceTree = "<group>"; };
+		959D73D21F9F95B3002EE7A0 /* Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Name.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		950D93771F9F7C8600106146 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				957E6EA81F9E5623003A1449 /* main.swift */,
+				950D93781F9F7CB400106146 /* UserInterface.swift */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
 		957E6E9C1F9E5623003A1449 = {
 			isa = PBXGroup;
 			children = (
@@ -69,7 +80,8 @@
 		957E6EA71F9E5623003A1449 /* projet3 */ = {
 			isa = PBXGroup;
 			children = (
-				957E6EB41F9E57B4003A1449 /* Team */,
+				950D93771F9F7C8600106146 /* UserInterface */,
+				957E6EB41F9E57B4003A1449 /* Name */,
 				957E6EB31F9E57A2003A1449 /* Character */,
 			);
 			path = projet3;
@@ -87,13 +99,12 @@
 			path = Character;
 			sourceTree = "<group>";
 		};
-		957E6EB41F9E57B4003A1449 /* Team */ = {
+		957E6EB41F9E57B4003A1449 /* Name */ = {
 			isa = PBXGroup;
 			children = (
-				957E6EA81F9E5623003A1449 /* main.swift */,
-				957E6EB51F9E57C2003A1449 /* Team.swift */,
+				959D73D21F9F95B3002EE7A0 /* Name.swift */,
 			);
-			path = Team;
+			path = Name;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,9 +168,10 @@
 				957E6EBC1F9E58D1003A1449 /* Mage.swift in Sources */,
 				957E6EBE1F9E58EA003A1449 /* Giant.swift in Sources */,
 				957E6EB81F9E5862003A1449 /* Character.swift in Sources */,
-				957E6EB61F9E57C2003A1449 /* Team.swift in Sources */,
 				957E6EBA1F9E58AC003A1449 /* Warrior.swift in Sources */,
 				957E6EC01F9E591E003A1449 /* Dwarf.swift in Sources */,
+				959D73D31F9F95B3002EE7A0 /* Name.swift in Sources */,
+				950D93791F9F7CB400106146 /* UserInterface.swift in Sources */,
 				957E6EA91F9E5623003A1449 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
