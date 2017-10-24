@@ -2,14 +2,14 @@
 //  Character.swift
 //  projet3
 //
-//  Created by Christophe DURAND on 23/10/2017.
+//  Created by Christophe DURAND on 24/10/2017.
 //  Copyright © 2017 Christophe DURAND. All rights reserved.
 //
 
 import Foundation
 
 class Character {
-    
+
     var nameCharacter: String
     var classe: String
     var hp: Int
@@ -17,7 +17,7 @@ class Character {
     var atk: Int
     var def: Int
     var mag: Int
-    
+
     init(nameCharacter: String, classe: String, hp: Int, mp: Int, atk: Int, def: Int, mag: Int) {
         self.nameCharacter = nameCharacter
         self.classe = classe
@@ -26,8 +26,8 @@ class Character {
         self.atk = atk
         self.def = def
         self.mag = mag
-    }
-    
+}
+
     func showCharacter() {
         print(" ")
         print("==================================")
@@ -41,3 +41,4 @@ class Character {
             + "")
     }
 }
+
