@@ -8,27 +8,27 @@
 
 import Foundation
 
-class UserInterface {
+class GameInterface {
     
-    let infiniteLoop = true
     var characters1 = [Character]()
     var characters2 = [Character]()
+    let player1 = Player(playerName: "")
+    let player2 = Player(playerName: "")
     
     func start() {
+        
         var userChoice = 0
+        mainMenu()
         repeat {
-            mainMenu()
-            repeat {
-                userChoice = inputInt()
-            }
-                while userChoice != 1
-                    switch userChoice {
-                        case 1:
-                            selectTeam()
-                        default:
-                            break
-            }
-        }   while infiniteLoop
+            userChoice = inputInt()
+        }
+            while userChoice != 1
+        switch userChoice {
+        case 1:
+            typeNamePlayer1()
+        default:
+            break
+        }
     }
     
     func mainMenu() {
@@ -39,64 +39,36 @@ class UserInterface {
         print("=====================================================")
     }
     
-    func selectTeam() {
-        var userChoice = 0
-        
-        print("")
-        print("========================")
-        print("Please select your team:"
-            + "\n1. Team 1"
-            + "\n2. Team 2")
-        print("========================")
-        
-        repeat {
-            userChoice = inputInt()
-            }
-            while userChoice != 1 && userChoice != 2
-                switch userChoice {
-                    case 1:
-                        typeNamePlayer1()
-                    case 2:
-                        typeNamePlayer2()
-                    default:
-                        break
-                }
-        }
-    
     func typeNamePlayer1() {
-    
-        let player = Name(name: "")
         
         print("")
-        print("======================")
-        print("Please type your name:")
-        print("======================")
+        print("=================================")
+        print("Please type your name for team 1:")
+        print("=================================")
         
         if let choice = readLine() {
-            player.name = choice
+            player1.playerName = choice
         }
         self.selectCharacterScreen1()
     }
     
     func typeNamePlayer2() {
-    
-        let player = Name(name: "")
-    
+        
         print("")
-        print("======================")
-        print("Please type your name:")
-        print("======================")
-    
+        print("=================================")
+        print("Please type your name for team 2:")
+        print("=================================")
+        
         if let choice = readLine() {
-            player.name = choice
+            player2.playerName = choice
         }
         self.selectCharacterScreen2()
-}
+    }
     
     func selectCharacterScreen1() {
         
         var userChoice = 0
-        var name: String = ""
+        var nameCharacter: String = ""
         var error: Bool = false
         
         repeat {
@@ -106,11 +78,11 @@ class UserInterface {
             else {
                 print("Please type an unique character's name")
             }
-            name = inputString()
+            nameCharacter = inputString()
             error = false
             for c in characters1 {
-                if  c.nameCharacter == name {
-                    error = false
+                if  c.characterName == nameCharacter {
+                    error = true
                     break
                 }
             }
@@ -119,7 +91,7 @@ class UserInterface {
         
         print("")
         print("====================================================================================")
-        print("Please select 3 characters for your team:"
+        print("Please select a character for your team:"
             +  "\n1. Warrior, a character equipped with a sword and possesses balance combat stats"
             +  "\n2. Mage, a support character with the ability to heal"
             +  "\n3. Giant, a character with great defense and stamina but low offense"
@@ -131,34 +103,38 @@ class UserInterface {
         } while userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4
         
         switch userChoice {
-                case 1:
-                    let warrior = Warrior()
-                    characters1.append(warrior)
-                case 2:
-                    let mage = Mage()
-                    characters1.append(mage)
-                case 3:
-                    let giant = Giant()
-                    characters1.append(giant)
-                case 4:
-                    let dwarf = Dwarf()
-                    characters1.append(dwarf)
-                default:
-                    break
+        case 1:
+            let warrior = Warrior()
+            characters1.append(warrior)
+        case 2:
+            let mage = Mage()
+            characters1.append(mage)
+        case 3:
+            let giant = Giant()
+            characters1.append(giant)
+        case 4:
+            let dwarf = Dwarf()
+            characters1.append(dwarf)
+        default:
+            break
         }
-            if characters1.count == 3 {
-                resumeParty1()
-                selectTeam()
+        if characters1.count == 3 {
+            for c in characters1 {
+                c.showCharacter()
             }
+            typeNamePlayer2()
+        }
         
         self.selectCharacterScreen1()
     }
     
+    
     func selectCharacterScreen2() {
         
         var userChoice = 0
-        var name: String = ""
+        var nameCharacter: String = ""
         var error: Bool = false
+        
         
         repeat {
             if error == true {
@@ -167,11 +143,11 @@ class UserInterface {
             else {
                 print("Please type an unique character's name")
             }
-            name = inputString()
+            nameCharacter = inputString()
             error = false
             for c in characters2 {
-                if  c.nameCharacter == name {
-                    error = false
+                if  c.characterName == nameCharacter {
+                    error = true
                     break
                 }
             }
@@ -180,7 +156,7 @@ class UserInterface {
         
         print("")
         print("====================================================================================")
-        print("Please select 3 characters for your team:"
+        print("Please select a character for your team:"
             +  "\n1. Warrior, a character equipped with a sword and possesses balance combat stats"
             +  "\n2. Mage, a support character with the ability to heal"
             +  "\n3. Giant, a character with great defense and stamina but low offense"
@@ -208,34 +184,12 @@ class UserInterface {
             break
         }
         if characters2.count == 3 {
-            resumeParty2()
+            for c in characters2 {
+                c.showCharacter()
+            }
         }
-    
         self.selectCharacterScreen2()
-    }
-    
-    func resumeParty1() {
-        if characters1.count == 3 {
-            showTeam1()
-        }
-    }
-    
-    func resumeParty2() {
-        if characters2.count == 3 {
-            showTeam2()
-        }
-    }
-    
-    func showTeam1() {
-        for c in characters1 {
-            c.showCharacter()
-        }
-    }
-    
-    func showTeam2() {
-        for c in characters2 {
-            c.showCharacter()
-        }
+        self.fight()
     }
     
     func inputInt() -> Int {
@@ -247,5 +201,69 @@ class UserInterface {
     func inputString() -> String {
         guard let data = readLine() else { return "" }
         return data
+    }
+    
+    func attack(target: Character) {
+        let currentClasse = "Mage"
+        for c in characters1 {
+            if c.classe != currentClasse {
+                target.currentLife -= c.atk
+            }
+        }
+    }
+    
+    func heal(target: Character) {
+        let currentClasse = "Mage"
+        for c in characters1 {
+            if c.classe == currentClasse {
+                target.currentLife += c.mag
+            }
+        }
+    }
+    
+    func moveSet(target: Character) {
+        let currentClasse = "Mage"
+        for c in characters1 {
+            if c.classe == currentClasse {
+                heal(target: <#T##Character#>)
+            }
+            else {
+                attack(target: <#T##Character#>)
+            }
+        }
+    }
+    
+    func fight() {
+        var userChoice = 0
+        var players: [Player] = [player1, player2]
+        
+        repeat {
+            for p in players {
+                if p.playerName == player1.playerName {
+                    for _ in characters1 {
+                        repeat {
+                            userChoice = inputInt()
+                        } while userChoice != 1 && userChoice != 2 && userChoice != 3
+                        switch userChoice {
+                        case 1:
+                            moveSet()
+                        case 2:
+                            moveSet()
+                        case 3:
+                            moveSet()
+                        default:
+                            break
+                        }
+                    }
+                }
+            }
+        } while currentLife > 0
+        
+        for c in characters1 {
+            c.showCharacter()
+        }
+        for c in characters2 {
+            c.showCharacter()
+        }
     }
 }

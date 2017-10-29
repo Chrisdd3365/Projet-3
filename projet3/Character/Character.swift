@@ -8,35 +8,34 @@
 
 import Foundation
 
-class Character {
+class Character { 
 
-    var nameCharacter: String
-    var classe: String
-    var hp: Int
-    var mp: Int
+    var characterName: String
+    let classe: String
+    let maxLife: Int
+    var currentLife: Int
+    var weaponEquipped: String
     var atk: Int
-    var def: Int
     var mag: Int
-
-    init(nameCharacter: String, classe: String, hp: Int, mp: Int, atk: Int, def: Int, mag: Int) {
-        self.nameCharacter = nameCharacter
+    
+    init(characterName: String, classe: String, maxLife: Int, currentLife: Int, weaponEquipped: String, atk: Int, mag: Int) {
+        self.characterName = characterName
         self.classe = classe
-        self.hp = hp
-        self.mp = mp
+        self.maxLife = maxLife
+        self.currentLife = currentLife
+        self.weaponEquipped = weaponEquipped
         self.atk = atk
-        self.def = def
         self.mag = mag
 }
 
     func showCharacter() {
-        print(" ")
+        print("")
         print("==================================")
-        print("Character's name: \(nameCharacter)"
+        print("Character's name: \(characterName)"
             + "\nClasse: \(classe)"
-            + "\nHP: \(hp)"
-            + "\nMP: \(mp)"
+            + "\nHP: \(currentLife)/\(maxLife)"
+            + "\nWeapon: \(weaponEquipped)"
             + "\nATK: \(atk)"
-            + "\nDEF: \(def)"
             + "\nMAG: \(mag)"
             + "")
     }
