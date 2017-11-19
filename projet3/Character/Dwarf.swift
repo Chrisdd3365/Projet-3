@@ -11,6 +11,6 @@ import Foundation
 class Dwarf: Character {
 
     init() {
-        super.init(characterName: "", classe: "Dwarf", maxLife: 50, currentLife: 50, weaponEquipped: "Axe", atk: 20, mag: 0)
+        super.init(characterName: "", classeName: "Dwarf", maxHealth: 80, currentHealth: 80, weapon: Axe())
     }
 }

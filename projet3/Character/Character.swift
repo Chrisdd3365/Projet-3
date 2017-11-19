@@ -8,36 +8,45 @@
 
 import Foundation
 
-class Character { 
-
-    var characterName: String
-    let classe: String
-    let maxLife: Int
-    var currentLife: Int
-    var weaponEquipped: String
-    var atk: Int
-    var mag: Int
+class Character {
     
-    init(characterName: String, classe: String, maxLife: Int, currentLife: Int, weaponEquipped: String, atk: Int, mag: Int) {
+    var characterName: String
+    var classeName: String
+    let maxHealth: Int
+    var currentHealth: Int
+    var weapon: Weapon
+    
+    init(characterName: String, classeName: String, maxHealth: Int, currentHealth: Int, weapon: Weapon) {
         self.characterName = characterName
-        self.classe = classe
-        self.maxLife = maxLife
-        self.currentLife = currentLife
-        self.weaponEquipped = weaponEquipped
-        self.atk = atk
-        self.mag = mag
-}
-
-    func showCharacter() {
+        self.classeName = classeName
+        self.maxHealth = maxHealth
+        self.currentHealth = currentHealth
+        self.weapon = weapon
+    }
+    
+    func characterDescription() {
         print("")
         print("==================================")
-        print("Character's name: \(characterName)"
-            + "\nClasse: \(classe)"
-            + "\nHP: \(currentLife)/\(maxLife)"
-            + "\nWeapon: \(weaponEquipped)"
-            + "\nATK: \(atk)"
-            + "\nMAG: \(mag)"
+        print("Character's name: \(self.characterName)"
+            + "\nClasse: \(classeName)"
+            + "\nHP: \(currentHealth)/\(maxHealth)"
+            + "\nWeapon's Stats: \(self.weapon.atk) atk, \(self.weapon.mag) mag"
             + "")
     }
+    
+    func attack(targetEnnemy: Character) {
+        targetEnnemy.currentHealth -= self.weapon.atk
+        if self.currentHealth < 0 {
+            self.currentHealth = 0
+        }
+    }
+    
+    func heal(targetAlly: Character) {
+        if targetAlly.currentHealth > 0 {
+            targetAlly.currentHealth += self.weapon.mag
+            if targetAlly.currentHealth > targetAlly.maxHealth {
+                targetAlly.currentHealth = targetAlly.maxHealth
+            }
+        }
+    }
 }
-

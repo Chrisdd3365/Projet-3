@@ -1,5 +1,5 @@
 //
-//  UserInterface.swift
+//  Game.swift
 //  projet3
 //
 //  Created by Christophe DURAND on 24/10/2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GameInterface {
+class Game {
     
     var characters1 = [Character]()
     var characters2 = [Character]()
@@ -65,7 +65,7 @@ class GameInterface {
         self.selectCharacterScreen2()
     }
     
-    func selectCharacterScreen1() {
+    func selectCharacterScreen1() { // à modifier
         
         var userChoice = 0
         var nameCharacter: String = ""
@@ -120,7 +120,7 @@ class GameInterface {
         }
         if characters1.count == 3 {
             for c in characters1 {
-                c.showCharacter()
+                c.characterDescription()
             }
             typeNamePlayer2()
         }
@@ -129,7 +129,7 @@ class GameInterface {
     }
     
     
-    func selectCharacterScreen2() {
+    func selectCharacterScreen2() { // à modifier
         
         var userChoice = 0
         var nameCharacter: String = ""
@@ -185,11 +185,73 @@ class GameInterface {
         }
         if characters2.count == 3 {
             for c in characters2 {
-                c.showCharacter()
+                c.characterDescription()
             }
         }
         self.selectCharacterScreen2()
-        self.fight()
+        self.turn()
+    }
+    
+    func turn() {
+        let players: [Player] = [player1, player2]
+        var cpt = 0
+        repeat {
+            if cpt % 2 == 0 {
+                player1.fight()
+            }
+            else {
+                player2.fight()
+            }
+            cpt += 1
+        } while characters1.currentHealth > 0 && characters2.currentHealth > 0
+    }
+    
+    func fight() {
+        print("")
+        print("=====================")
+        print("Let the battle begin!")
+        print("")
+        var userChoice: Int
+        for c in characters1 {
+            c.characterDescription()
+            repeat {
+                print("")
+                print("==========================")
+                print("Please select a character from your team:")
+                print("")
+                userChoice = inputInt()
+            } while userChoice != 0 && userChoice != 1 && userChoice != 2
+            repeat {
+                print("")
+                print("=================")
+                print("Choose your move:")
+                print("\n1. Attack"
+                    + "\n2. Return")
+                print("")
+                userChoice = inputInt()
+            } while userChoice != 1 && userChoice != 2
+            if c.classeName == "Mage" {
+                repeat {
+                    print("")
+                    print("=================")
+                    print("Choose your move:")
+                    print("\n1. Heal"
+                        + "\n2. Return")
+                    print("")
+                    userChoice = inputInt()
+                } while userChoice != 1 && userChoice != 2
+            }
+            for c in characters2 {
+                c.characterDescription()
+                repeat {
+                    print("")
+                    print("================================================")
+                    print("Please select a character from the enemies team:")
+                    print("")
+                    userChoice = inputInt()
+                } while userChoice != 0 && userChoice != 1 && userChoice != 2
+            }
+        }
     }
     
     func inputInt() -> Int {
@@ -201,69 +263,5 @@ class GameInterface {
     func inputString() -> String {
         guard let data = readLine() else { return "" }
         return data
-    }
-    
-    func attack(target: Character) {
-        let currentClasse = "Mage"
-        for c in characters1 {
-            if c.classe != currentClasse {
-                target.currentLife -= c.atk
-            }
-        }
-    }
-    
-    func heal(target: Character) {
-        let currentClasse = "Mage"
-        for c in characters1 {
-            if c.classe == currentClasse {
-                target.currentLife += c.mag
-            }
-        }
-    }
-    
-    func moveSet(target: Character) {
-        let currentClasse = "Mage"
-        for c in characters1 {
-            if c.classe == currentClasse {
-                heal(target: <#T##Character#>)
-            }
-            else {
-                attack(target: <#T##Character#>)
-            }
-        }
-    }
-    
-    func fight() {
-        var userChoice = 0
-        var players: [Player] = [player1, player2]
-        
-        repeat {
-            for p in players {
-                if p.playerName == player1.playerName {
-                    for _ in characters1 {
-                        repeat {
-                            userChoice = inputInt()
-                        } while userChoice != 1 && userChoice != 2 && userChoice != 3
-                        switch userChoice {
-                        case 1:
-                            moveSet()
-                        case 2:
-                            moveSet()
-                        case 3:
-                            moveSet()
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-        } while currentLife > 0
-        
-        for c in characters1 {
-            c.showCharacter()
-        }
-        for c in characters2 {
-            c.showCharacter()
-        }
     }
 }

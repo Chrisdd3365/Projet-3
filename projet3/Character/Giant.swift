@@ -11,6 +11,6 @@ import Foundation
 class Giant: Character {
     
     init() {
-        super.init(characterName: "", classe: "Giant", maxLife: 120, currentLife: 120, weaponEquipped: "Hands", atk: 3, mag: 0)
+        super.init(characterName: "", classeName: "Giant", maxHealth: 120, currentHealth: 120, weapon: Shield())
     }
 }

@@ -9,8 +9,8 @@
 import Foundation
 
 class Mage: Character {
-  
+    
     init() {
-        super.init(characterName: "", classe: "Mage", maxLife: 70, currentLife: 70, weaponEquipped: "Scepter", atk: 0, mag: 10)
+        super.init(characterName: "", classeName: "Mage", maxHealth: 70, currentHealth: 70, weapon: Scepter())
     }
 }

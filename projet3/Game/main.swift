@@ -8,6 +8,6 @@
 
 import Foundation
 
-var newGame = GameInterface()
+var newGame = Game()
 newGame.start()
 
