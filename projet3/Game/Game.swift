@@ -10,247 +10,133 @@ import Foundation
 
 class Game {
     
-    var characters1 = [Character]()
-    var characters2 = [Character]()
-    let player1 = Player(playerName: "")
-    let player2 = Player(playerName: "")
+    var teamsArray = [Team]()
     
     func start() {
-        
-        var userChoice = 0
-        mainMenu()
-        repeat {
-            userChoice = inputInt()
-        }
-            while userChoice != 1
-        switch userChoice {
-        case 1:
-            typeNamePlayer1()
-        default:
-            break
-        }
-    }
-    
-    func mainMenu() {
         print("")
         print("=====================================================")
-        print("Welcome and get ready for the next and deadly battle!"
-            + "\n1. New Game")
+        print("Welcome and get ready for the next and deadly battle!")
         print("=====================================================")
-    }
-    
-    func typeNamePlayer1() {
-        
-        print("")
-        print("=================================")
-        print("Please type your name for team 1:")
-        print("=================================")
-        
-        if let choice = readLine() {
-            player1.playerName = choice
+        for i in 0..<2 {
+            createNewTeam()
+            createNewTeamCharacters(index: i)
         }
-        self.selectCharacterScreen1()
+        
+        print("The 2 teams are ready to fight!")
+        fight()
     }
     
-    func typeNamePlayer2() {
+    func createNewTeam() {
         
-        print("")
-        print("=================================")
-        print("Please type your name for team 2:")
-        print("=================================")
-        
-        if let choice = readLine() {
-            player2.playerName = choice
-        }
-        self.selectCharacterScreen2()
-    }
-    
-    func selectCharacterScreen1() { // à modifier
-        
-        var userChoice = 0
-        var nameCharacter: String = ""
         var error: Bool = false
-        
+        var nameTeam: String = ""
         repeat {
             if error == true {
-                print("Please type a valid character's name. His name must be unique.")
+                print("This name is already used. Please type a different and unique name for your team.")
             }
             else {
-                print("Please type an unique character's name")
+                print("")
+                print("====================================")
+                print("Please type your name for your team:")
+                print("====================================")
             }
-            nameCharacter = inputString()
+            nameTeam = inputString()
             error = false
-            for c in characters1 {
-                if  c.characterName == nameCharacter {
+            for t in teamsArray {
+                if t.name == nameTeam {
                     error = true
                     break
                 }
             }
         } while error == true
-        
-        
-        print("")
-        print("====================================================================================")
-        print("Please select a character for your team:"
-            +  "\n1. Warrior, a character equipped with a sword and possesses balance combat stats"
-            +  "\n2. Mage, a support character with the ability to heal"
-            +  "\n3. Giant, a character with great defense and stamina but low offense"
-            +  "\n4. Dwarf, a character equipped with an axe, can deal great damage but low stamina")
-        print("====================================================================================")
-        
-        repeat {
-            userChoice = inputInt()
-        } while userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4
-        
-        switch userChoice {
-        case 1:
-            let warrior = Warrior()
-            characters1.append(warrior)
-        case 2:
-            let mage = Mage()
-            characters1.append(mage)
-        case 3:
-            let giant = Giant()
-            characters1.append(giant)
-        case 4:
-            let dwarf = Dwarf()
-            characters1.append(dwarf)
-        default:
-            break
-        }
-        if characters1.count == 3 {
-            for c in characters1 {
-                c.characterDescription()
-            }
-            typeNamePlayer2()
-        }
-        
-        self.selectCharacterScreen1()
+        teamsArray.append(Team(name: nameTeam))
     }
     
-    
-    func selectCharacterScreen2() { // à modifier
-        
-        var userChoice = 0
-        var nameCharacter: String = ""
-        var error: Bool = false
-        
+    func createNewTeamCharacters(index: Int) { 
         
         repeat {
-            if error == true {
-                print("Please type a valid character's name. His name must be unique.")
-            }
-            else {
-                print("Please type an unique character's name")
-            }
-            nameCharacter = inputString()
-            error = false
-            for c in characters2 {
-                if  c.characterName == nameCharacter {
-                    error = true
-                    break
+            var userChoice = 0
+            var nameCharacter: String = ""
+            var error: Bool = false
+            
+            repeat {
+                if error == true {
+                    print("The selected name is alreadry picked. Please choose an another name for your character.")
                 }
+                else {
+                    print("Please type an unique character's name")
+                }
+                nameCharacter = inputString()
+                error = false
+                for t in teamsArray {
+                    for c in t.characterArray {
+                        if  c.characterName == nameCharacter {
+                            error = true
+                            break
+                        }
+                    }
+                    if error == true {
+                        break
+                    }
+                }
+            } while error == true
+            
+            repeat {
+                if error == true {
+                    print("Please choose a character with the right keys (1,2,3,4)")
+                }
+                else {
+                    print("")
+                    print("====================================================================================")
+                    print("Please select a character for your team:"
+                        +  "\n1. Warrior, a character equipped with a sword and possesses balance combat stats"
+                        +  "\n2. Mage, a support character with the ability to heal"
+                        +  "\n3. Giant, a character with great defense and stamina but low offense"
+                        +  "\n4. Dwarf, a character equipped with an axe, can deal great damage but low stamina")
+                    print("====================================================================================")
+                }
+                userChoice = inputInt()
+                
+                if userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 {
+                    error = true
+                }
+                else {
+                    error = false
+                }
+            } while error == true
+            
+            var character : Character
+            switch userChoice {
+            case 1:
+                character = Warrior(name: nameCharacter)
+                
+            case 2:
+                character = Mage(name: nameCharacter)
+                
+            case 3:
+                character = Giant(name: nameCharacter)
+                
+            case 4:
+                character = Dwarf(name: nameCharacter)
+                
+            default:
+                chararacter = Warrior(name: nameCharacter)
+                break
             }
-        } while error == true
-        
-        
-        print("")
-        print("====================================================================================")
-        print("Please select a character for your team:"
-            +  "\n1. Warrior, a character equipped with a sword and possesses balance combat stats"
-            +  "\n2. Mage, a support character with the ability to heal"
-            +  "\n3. Giant, a character with great defense and stamina but low offense"
-            +  "\n4. Dwarf, a character equipped with an axe, can deal great damage but low stamina")
-        print("====================================================================================")
-        
-        repeat {
-            userChoice = inputInt()
-        } while userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4
-        
-        switch userChoice {
-        case 1:
-            let warrior = Warrior()
-            characters2.append(warrior)
-        case 2:
-            let mage = Mage()
-            characters2.append(mage)
-        case 3:
-            let giant = Giant()
-            characters2.append(giant)
-        case 4:
-            let dwarf = Dwarf()
-            characters2.append(dwarf)
-        default:
-            break
-        }
-        if characters2.count == 3 {
-            for c in characters2 {
-                c.characterDescription()
-            }
-        }
-        self.selectCharacterScreen2()
-        self.turn()
-    }
-    
-    func turn() {
-        let players: [Player] = [player1, player2]
-        var cpt = 0
-        repeat {
-            if cpt % 2 == 0 {
-                player1.fight()
-            }
-            else {
-                player2.fight()
-            }
-            cpt += 1
-        } while characters1.currentHealth > 0 && characters2.currentHealth > 0
+            teamsArray[index].life += char.maxHealth
+            teamsArray[index].characterArray.append(character)
+        } while teamsArray[index].characterArray.count < 3
     }
     
     func fight() {
-        print("")
-        print("=====================")
-        print("Let the battle begin!")
-        print("")
-        var userChoice: Int
-        for c in characters1 {
-            c.characterDescription()
-            repeat {
-                print("")
-                print("==========================")
-                print("Please select a character from your team:")
-                print("")
-                userChoice = inputInt()
-            } while userChoice != 0 && userChoice != 1 && userChoice != 2
-            repeat {
-                print("")
-                print("=================")
-                print("Choose your move:")
-                print("\n1. Attack"
-                    + "\n2. Return")
-                print("")
-                userChoice = inputInt()
-            } while userChoice != 1 && userChoice != 2
-            if c.classeName == "Mage" {
-                repeat {
-                    print("")
-                    print("=================")
-                    print("Choose your move:")
-                    print("\n1. Heal"
-                        + "\n2. Return")
-                    print("")
-                    userChoice = inputInt()
-                } while userChoice != 1 && userChoice != 2
-            }
-            for c in characters2 {
-                c.characterDescription()
-                repeat {
-                    print("")
-                    print("================================================")
-                    print("Please select a character from the enemies team:")
-                    print("")
-                    userChoice = inputInt()
-                } while userChoice != 0 && userChoice != 1 && userChoice != 2
-            }
+        GameDescription()
+    }
+    
+    func GameDescription() {
+        print("==================================")
+        print("Games's Teams")
+        for t in teamsArray {
+            t.teamDescription()
         }
     }
     

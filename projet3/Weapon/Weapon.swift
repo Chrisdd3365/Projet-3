@@ -9,11 +9,8 @@
 import Foundation
 
 class Weapon {
-    var atk: Int
-    var mag: Int
-    
-    init(atk: Int, mag: Int) {
-        self.atk = atk
-        self.mag = mag
+    var damage: Int
+    init(damage: Int) {
+        self.damage = damage
     }
 }

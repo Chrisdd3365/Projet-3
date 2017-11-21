@@ -10,7 +10,21 @@ import Foundation
 
 class Mage: Character {
     
-    init() {
-        super.init(characterName: "", classeName: "Mage", maxHealth: 70, currentHealth: 70, weapon: Scepter())
+    init(name: String) {
+        super.init(characterName: name, characterClasse: "Mage", currentHealth: 70, weapon: Scepter())
+        
+    }
+    
+    override func attack(targetEnnemy: Character) {
+        print("I can't attack.")
+    }
+    
+    func heal(targetAlly: Character) {  // à modifier
+        if targetAlly.currentHealth > 0 {
+            targetAlly.currentHealth += (weapon as! Scepter).magic
+            if targetAlly.currentHealth > targetAlly.maxHealth {
+                targetAlly.currentHealth = targetAlly.maxHealth
+            }
+        }
     }
 }

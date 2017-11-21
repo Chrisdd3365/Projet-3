@@ -10,7 +10,7 @@ import Foundation
 
 class Giant: Character {
     
-    init() {
-        super.init(characterName: "", classeName: "Giant", maxHealth: 120, currentHealth: 120, weapon: Shield())
+    init(name: String) {
+        super.init(characterName: name, characterClasse: "Giant", currentHealth: 120, weapon: Shield())
     }
 }
