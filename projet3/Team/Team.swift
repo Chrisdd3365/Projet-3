@@ -8,19 +8,20 @@
 
 import Foundation
 
-class Team {
+class Team { 
     
     var name: String
     var characterArray = [Character]()
-    var life : Int = 0
-    
+    var life = 0
+
     init(name: String) {
         self.name = name
     }
     
     func teamDescription() {
-        print("==================================")
+        print("==========================")
         print("Team's name: \(self.name) ")
+        print("")
         for c in characterArray {
             c.characterDescription()
         }

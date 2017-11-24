@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Weapon {
+class Weapon { 
     var damage: Int
     init(damage: Int) {
         self.damage = damage

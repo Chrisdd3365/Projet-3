@@ -8,9 +8,8 @@
 
 import Foundation
 
-class Warrior: Character {
-    
-    init(name: String) {
-        super.init(characterName: name, characterClasse: "Warrior", currentHealth: 100, weapon: Sword())
+class Warrior: Character { // A super class named "Warrior" to set things especially for this type of character 
+    init(name: String, myTeam: Team) {
+        super.init(characterName: name, characterClasse: "Warrior", currentHealth: 100, weapon: Sword(), myTeam: myTeam)
     }
 }
