@@ -11,7 +11,7 @@ import Foundation
 class Game {
     
     var teamsArray = [Team]()
-    
+    var lootluck = 80 // Switch lootluck to 0 to have a 100% of treasure chest
     
     func start() { // Start a new game by creating two teams of 3 characters
         print("")
@@ -111,33 +111,22 @@ class Game {
                 }
             } while error == true
             
-            var character: Character
             switch userChoice {
             case 1:
-                character = Warrior(name: nameCharacter, myTeam: teamsArray[index])
+                let warrior = Warrior(name: nameCharacter, myTeam: teamsArray[index])
+                teamsArray[index].characterArray.append(warrior)
             case 2:
-                character = Mage(name: nameCharacter, myTeam: teamsArray[index])
+                let mage = Mage(name: nameCharacter, myTeam: teamsArray[index])
+                teamsArray[index].characterArray.append(mage)
             case 3:
-                character = Giant(name: nameCharacter, myTeam: teamsArray[index])
+                let giant = Giant(name: nameCharacter, myTeam: teamsArray[index])
+                teamsArray[index].characterArray.append(giant)
             case 4:
-                character = Dwarf(name: nameCharacter, myTeam: teamsArray[index])
+                let dwarf = Dwarf(name: nameCharacter, myTeam: teamsArray[index])
+                teamsArray[index].characterArray.append(dwarf)
             default:
-                character = Warrior(name: nameCharacter, myTeam: teamsArray[index])
                 break
             }
-            teamsArray[index].life += character.maxHealth
-            teamsArray[index].characterArray.append(character)
-        }
-    }
-    
-    func gameDescription() {
-        print("")
-        print("=============")
-        print("Games's Teams")
-        print("=============")
-        print("")
-        for t in teamsArray {
-            t.teamDescription()
         }
     }
     
@@ -149,49 +138,61 @@ class Game {
         
         repeat {
             for i in 0..<2 {
+                print("")
+                print("It's your turn to play")
                 
-                var indiceTarget = i
                 choiceCharacter = self.chooseCharacter(t: teamsArray[i], typeOfAsk: "Please press 1 or 2 or 3 to choose a character to fight with: ")
+                self.loot(character: choiceCharacter)
                 
-                var message1: String = "Choose a target to "
-                var message2: String = "has "
-                var message3: String = "for "
-                
-                
-                if choiceCharacter is Mage {
-                    let weapon = Scepter()
-                    message1 += "heal : "
-                    message2 += "healed "
-                    message3 += "\(weapon.magic)"
+                if let mage = choiceCharacter as? Mage {
+                    print("")
+                    print("What character do you want to heal?")
+                    print("")
+                    choiceTarget = self.chooseCharacter(t: teamsArray[i], typeOfAsk: "Please press 1 or 2 or 3 to choose a character to heal: ")
+                    if choiceCharacter.weapon is UltimateScepter {
+                        print("")
+                        print("\(choiceCharacter.characterName) has healed \(choiceTarget.characterName) for \((choiceCharacter.weapon as! UltimateScepter).magic) points!  ")
+                    } else {
+                        print("")
+                        print("\(choiceCharacter.characterName) has healed \(choiceTarget.characterName) for \((choiceCharacter.weapon as! Scepter).magic) points!  ")
+                    }
+                    mage.heal(targetAlly: choiceTarget)
+                    print("\(choiceTarget.characterName) has now \(choiceTarget.currentHealth) HP! ")
                 }
                 else {
-                    message1 += "attack : "
-                    message2 += "attacked "
-                    message3 += "\(choiceCharacter.weapon.damage)"
-                    if indiceTarget == 0 {
-                        indiceTarget = 1
+                    print("")
+                    print("What character do you want to attack?")
+                    print("")
+                    if i == 0 {
+                        // Select a single target from team 2
+                        choiceTarget = self.chooseCharacter(t: teamsArray[i + 1], typeOfAsk: "Please press 1 or 2 or 3 to choose a target: ")
+                        choiceCharacter.attack(targetEnnemy: choiceTarget)
+                        if choiceTarget.currentHealth <= 0 {
+                            print("")
+                            print("\(choiceTarget.characterName) is dead! ")
+                        }
+                    } else {
+                        // Select a single target from team 1
+                        choiceTarget = self.chooseCharacter(t: teamsArray[i - 1], typeOfAsk: "Please press 1 or 2 or 3 to choose a target: ")
+                        choiceCharacter.attack(targetEnnemy: choiceTarget)
+                        if choiceTarget.currentHealth <= 0 {
+                            print("")
+                            print("\(choiceTarget.characterName) is dead! ")
+                        }
                     }
-                    else {
-                        indiceTarget = 0
-                    }
+                    print("")
+                    print("\(choiceCharacter.characterName) has attacked \(choiceTarget.characterName) for \(choiceCharacter.weapon.damage) points! ")
+                    print("\(choiceTarget.characterName) has now \(choiceTarget.currentHealth) HP left! ")
                 }
-                
-                choiceTarget = self.chooseCharacter(t: teamsArray[indiceTarget], typeOfAsk: message1)
-                choiceCharacter.attack(targetEnnemy: choiceTarget)
-                
-                print("")
-                print("\(choiceCharacter.characterName) \(message2)\(choiceTarget.characterName) \(message3) points! ")
-                print("\(choiceTarget.characterName) has now \(choiceTarget.currentHealth) HP left! ")
-                print("")
             }
             turn += 1
-        } while teamsArray[0].life >= 0 && teamsArray[1].life >= 0
+        } while teamsArray.count >= 1
         
         var winnerName: String
-        if teamsArray[0].life < 0 {
-            winnerName = teamsArray[1].name
-        } else {
+        if teamsArray.count == 1 {
             winnerName = teamsArray[0].name
+        } else {
+            winnerName = teamsArray[1].name
         }
         print("")
         print("=========================================================")
@@ -211,9 +212,9 @@ class Game {
         print(typeOfAsk)
         print("")
         
-        let stringError1 = "Please press 1 or 2 or 3 to choose a character : "
-        let stringError2 = "Please choose a character still alive : "
         var stringError = ""
+        let stringError1 = "Please press 1 or 2 or 3 to choose a character: "
+        let stringError2 = "Please choose a character still alive: "
         
         repeat {
             if error == true {
@@ -239,7 +240,42 @@ class Game {
         return t.characterArray[userChoice-1]
     }
     
-    
+    func loot(character: Character) { // Generate a random chest loot with a random weapon to a random player during the game
+        
+        let dice1 = arc4random_uniform(100) // Generate a random number to get a chest loot during the game
+        
+        if dice1 >= lootluck {
+            
+            var announcement = "You are lucky, a treasure chest appeared in front of you! "
+            let modif = 30
+            
+            if character is Mage {
+                let ultimateScepter = UltimateScepter()
+                if character.weapon is UltimateScepter {
+                    print("")
+                    announcement += "\nIt's the Ultimate Scepter with \(modif) magic power! " + "\nBut you've already equipped it! "
+                } else {
+                    character.weapon = ultimateScepter // Equip the ultimate scepter to the choosen mage
+                    ultimateScepter.magic = modif
+                    announcement += "\nIt's the Ultimate Scepter with \(modif) magic power!" + "\nYou've now equipped your new scepter! "
+                }
+            }
+            else {
+                let ultimateWeapon = UltimateWeapon()
+                if character.weapon is UltimateWeapon {
+                    print("")
+                    announcement += "\nIt's the Ultimate Weapon with \(modif) attack power!" + "\nBut you've already equipped it! "
+                }
+                else {
+                    character.weapon = ultimateWeapon // Equip the ultimate weapon to the choosen character
+                    ultimateWeapon.damage = modif
+                    announcement += "\nIt's the Ultimate Weapon with \(modif) attack power!" + "\nYou've now equipped your new weapon! "
+                }
+            }
+            print("")
+            print(announcement)
+        }
+    }
     
     func inputInt() -> Int {
         guard let data = readLine() else { return 0 }

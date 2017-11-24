@@ -12,7 +12,7 @@ class Team {
     
     var name: String
     var characterArray = [Character]()
-    var life = 0
+    
 
     init(name: String) {
         self.name = name

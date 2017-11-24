@@ -11,6 +11,6 @@ import Foundation
 class Dwarf: Character { // A super class named "Dwarf" to set things especially for this type of character 
    
     init(name: String, myTeam: Team) {
-        super.init(characterName: name, characterClasse: "Dwarf", currentHealth: 80, weapon: Axe(), myTeam: myTeam)
+        super.init(characterName: name, characterClasse: "Dwarf", currentHealth: 80, weapon: Axe())
     }
 }
