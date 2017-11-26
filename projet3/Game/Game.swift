@@ -135,11 +135,13 @@ class Game {
         var choiceCharacter: Character
         var choiceTarget: Character
         var turn = 0
+        var deathCount1 = 0
+        var deathCount2 = 0
         
         repeat {
             for i in 0..<2 {
                 print("")
-                print("It's your turn to play")
+                print("It's your turn to play! ")
                 
                 choiceCharacter = self.chooseCharacter(t: teamsArray[i], typeOfAsk: "Please press 1 or 2 or 3 to choose a character to fight with: ")
                 self.loot(character: choiceCharacter)
@@ -170,6 +172,8 @@ class Game {
                         if choiceTarget.currentHealth <= 0 {
                             print("")
                             print("\(choiceTarget.characterName) is dead! ")
+                            choiceTarget.currentHealth = 0
+                            deathCount2 += 1
                         }
                     } else {
                         // Select a single target from team 1
@@ -178,6 +182,8 @@ class Game {
                         if choiceTarget.currentHealth <= 0 {
                             print("")
                             print("\(choiceTarget.characterName) is dead! ")
+                            choiceTarget.currentHealth = 0
+                            deathCount1 += 1
                         }
                     }
                     print("")
@@ -186,13 +192,13 @@ class Game {
                 }
             }
             turn += 1
-        } while teamsArray.count >= 1
+        } while deathCount1 != 3 && deathCount2 != 3
         
-        var winnerName: String
-        if teamsArray.count == 1 {
-            winnerName = teamsArray[0].name
-        } else {
+        var winnerName = ""
+        if deathCount1 == 3 {
             winnerName = teamsArray[1].name
+        } else {
+            winnerName = teamsArray[0].name
         }
         print("")
         print("=========================================================")
