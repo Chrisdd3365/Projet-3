@@ -12,13 +12,13 @@ class Game {
     
     var teamsArray = [Team]()
     
-    func start() { // Start a new game by creating two teams of 3 characters
+    func start() { // Start a new game when both the players have finished to create their 2 teams of 3 characters
         print("")
         print("=====================================================")
         print("Welcome and get ready for the next and deadly battle!")
         print("=====================================================")
         
-        for i in 0..<2 {
+        for i in 0..<2 { // Set at 2 because there is only 2 teams playing the game
             createNewTeam(index: i)
             createNewTeamCharacters(index: i)
         }
@@ -28,7 +28,7 @@ class Game {
         fight()
     }
     
-    func createNewTeam(index: Int) { // Create a new team by typing an unique name for the player
+    func createNewTeam(index: Int) { // Create a new team by typing an unique name for the team
         
         var error = false
         var nameTeam = ""
@@ -50,23 +50,23 @@ class Game {
             nameTeam = inputString()
             error = false
             
-            for t in teamsArray {
+            for t in teamsArray { // This loop checks if the team's name choosen by the player is already used or not
                 if t.name == nameTeam {
                     error = true
                 }
             }
-        } while error == true
+        } while error == true // Will repeat until there is no error from the player
     
-        teamsArray.append(Team(name: nameTeam))
+        teamsArray.append(Team(name: nameTeam)) // Add the team's name choosen by the player
     }
     
-    func createNewTeamCharacters(index: Int) {
+    func createNewTeamCharacters(index: Int) { // Create 3 characters
         
         var userChoice = 0
         var nameCharacter = ""
         var error = false
         
-        for i in 0..<3 {
+        for i in 0..<3 { // This loop allows the 2 players to choose 3 characters for their team
             repeat { 
                 if error == true {
                     print("")
@@ -87,12 +87,12 @@ class Game {
                 
                 userChoice = inputInt()
                 
-                if userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 {
+                if userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 { // This conditionner checks if the player uses 1, 2, 3, 4 as valid input
                     error = true
                 } else {
                     error = false
                 }
-            } while error == true
+            } while error == true // Will repeat there is no error from the player
             
             repeat {
                 if error == true {
@@ -111,16 +111,16 @@ class Game {
                 nameCharacter = inputString()
                 error = false
                 
-                for t in teamsArray {
+                for t in teamsArray { // This loop checks if the character's name is already used or not
                     for c in t.characterArray {
                         if  c.characterName == nameCharacter {
                             error = true
                         }
                     }
                 }
-            } while error == true
+            } while error == true // Will repeat until there is no error from the player
             
-            switch userChoice {
+            switch userChoice { // To add character of the player's choice to his team
             case 1:
                 let warrior = Warrior(name: nameCharacter, myTeam: teamsArray[index])
                 teamsArray[index].characterArray.append(warrior)
@@ -139,24 +139,24 @@ class Game {
         }
     }
     
-    func fight() {
+    func fight() { // A method to set the fight during the game
         
-        var choiceCharacter: Character
-        var choiceTarget: Character
-        var turn = 0
-        var deathCount1 = 0
-        var deathCount2 = 0
+        var choiceCharacter: Character // Character choosen to fight with
+        var choiceTarget: Character // Target choosen to attack or to heal
+        var turn = 0 // Count the number of turns
+        var deathCount1 = 0 // Count the number of dead characters into the team 1
+        var deathCount2 = 0 // Count the number of dead characters into the team 2
         
         repeat {
-            for i in 0..<2 {
+            for i in 0..<2 { // Set at 2 because there is only 2 teams
                 print("")
                 print("It's your turn to play! ")
-                
+                // To call the method "chooseCharacter" to begin the fight and select a character to fight with
                 choiceCharacter = self.chooseCharacter(t: teamsArray[i], typeOfAsk: "Please press 1 or 2 or 3 to choose a character to fight with: ")
                 
-                self.loot(character: choiceCharacter)
+                self.loot(character: choiceCharacter) // To call the method "loot" for the treasure chest
                 
-                if let mage = choiceCharacter as? Mage {
+                if let mage = choiceCharacter as? Mage { // If the character choosen is a Mage, the game will invite the player to heal an ally
                     print("")
                     print("What character do you want to heal?")
                     print("")
@@ -166,36 +166,34 @@ class Game {
                     print("")
                     print("\(choiceCharacter.characterName) has healed \(choiceTarget.characterName) for \(choiceCharacter.weapon.magic) points! ")
                     
-                    mage.heal(targetAlly: choiceTarget)
+                    mage.heal(targetAlly: choiceTarget) // To call the method "heal" from sub-class "Mage"
                     
                     print("\(choiceTarget.characterName) has now \(choiceTarget.currentHealth) HP! ")
                 }
-                else {
+                else { // If the character choosen is not a mage, the game will invite the player to attack a target
                     print("")
                     print("What character do you want to attack?")
                     print("")
                     
-                    if i == 0 {
-                        // Select a single target from team 2
+                    if i == 0 { // Select a single target from team 2
                         choiceTarget = self.chooseCharacter(t: teamsArray[i + 1], typeOfAsk: "Please press 1 or 2 or 3 to choose a target: ")
-                        choiceCharacter.attack(targetEnnemy: choiceTarget)
+                        choiceCharacter.attack(targetEnnemy: choiceTarget) // To call the method "attack" from base class "Character"
                         
-                        if choiceTarget.currentHealth <= 0 {
+                        if choiceTarget.currentHealth <= 0 { // If choiceTarget's current health is below 0 or equal to 0
                             print("")
                             print("\(choiceTarget.characterName) is dead! ")
-                            choiceTarget.currentHealth = 0
-                            deathCount2 += 1
+                            choiceTarget.currentHealth = 0 // To avoid to print negative health and it will only print "0 HP" instead
+                            deathCount2 += 1 // If a character is dead, it will add "1" to the death count of team 2
                         }
-                    } else {
-                        // Select a single target from team 1
+                    } else { // Select a single target from team 1
                         choiceTarget = self.chooseCharacter(t: teamsArray[i - 1], typeOfAsk: "Please press 1 or 2 or 3 to choose a target: ")
-                        choiceCharacter.attack(targetEnnemy: choiceTarget)
+                        choiceCharacter.attack(targetEnnemy: choiceTarget) // To call the method "attack" from base class "Character"
                         
-                        if choiceTarget.currentHealth <= 0 {
+                        if choiceTarget.currentHealth <= 0 { // If choiceTarget's current health is below 0 or equal to 0
                             print("")
                             print("\(choiceTarget.characterName) is dead! ")
-                            choiceTarget.currentHealth = 0
-                            deathCount1 += 1
+                            choiceTarget.currentHealth = 0 // To avoid to print negative health and it will only print "0 HP" instead
+                            deathCount1 += 1 // If a character is dead, it will add "1" to the death count of team 1
                         }
                     }
                     print("")
@@ -203,11 +201,11 @@ class Game {
                     print("\(choiceTarget.characterName) has now \(choiceTarget.currentHealth) HP left! ")
                 }
             }
-            turn += 1
-        } while deathCount1 != 3 && deathCount2 != 3
+            turn += 1 // Add "1" to the count of turn
+        } while deathCount1 != 3 && deathCount2 != 3 // Will reapeat until there are 3 dead characters of the same team
         
         var winnerName = ""
-        
+        // To announce the winner of the fight with the number of turns
         if deathCount1 == 3 {
             winnerName = teamsArray[1].name
         } else {
@@ -221,11 +219,11 @@ class Game {
         print("")
     }
     
-    func chooseCharacter(t: Team, typeOfAsk: String) -> Character {
+    func chooseCharacter(t: Team, typeOfAsk: String) -> Character { // A method created to permit the player to choose a character and a target during the fight
         
         var userChoice = 0
         var error = false
-        t.teamDescription()
+        t.teamDescription() // To show a short description of the two teams when the players choose a character and a target during the fight
         
         print("")
         print(typeOfAsk)
@@ -244,12 +242,12 @@ class Game {
             
             userChoice = inputInt()
             
-            if userChoice != 1 && userChoice != 2 && userChoice != 3 {
+            if userChoice != 1 && userChoice != 2 && userChoice != 3 { // If the player doesn't use 1,2,3 as valid input, then stringError 1 and invite again the player to use valid input
                 error = true
                 stringError = stringError1
             }
             else {
-                if t.characterArray[userChoice-1].currentHealth <= 0 {
+                if t.characterArray[userChoice-1].currentHealth <= 0 { // If the character is dead or if the target is dead, the player can't choose them and has to choose a character still alive
                     error = true
                     stringError = stringError2
                 }
@@ -257,11 +255,11 @@ class Game {
                     error = false
                 }
             }
-        } while error == true
-        return t.characterArray[userChoice-1]
+        } while error == true // Will repeat until there is no error
+        return t.characterArray[userChoice-1] // Will return an input(1,2,3) associated to the index of the array(0,1,2 respectively)
     }
     
-    func loot(character: Character) { // Generate a random chest loot with a random weapon to a random player during the game
+    func loot(character: Character) { // Generate a random chest loot with powerful weapon to a random choosen player during the game
         
         let dice1 = arc4random_uniform(100) // Generate a random number to get a chest loot during the game
         let lootluck = 80 // Switch lootluck to 0 to have a 100% of treasure chest
@@ -270,7 +268,7 @@ class Game {
             
             var announcement = "You are lucky, a treasure chest appeared in front of you! "
             
-            if character is Mage {
+            if character is Mage { // A "Mage" can't loot an ultimate weapon
                 let ultimateScepter = UltimateScepter()
                 if character.weapon is UltimateScepter {
                     print("")
@@ -280,7 +278,7 @@ class Game {
                     announcement += "\nIt's the Ultimate Scepter with \(character.weapon.magic) magic power!" + "\nYou've now equipped your new scepter! "
                 }
             }
-            else {
+            else { // A character other than "Mage" can't loot an ultimate scepter
                 let ultimateWeapon = UltimateWeapon()
                 if character.weapon is UltimateWeapon {
                     print("")
@@ -296,13 +294,13 @@ class Game {
         }
     }
     
-    func inputInt() -> Int {
+    func inputInt() -> Int { // Inputs other than Integer are not allowed
         guard let data = readLine() else { return 0 }
         guard let dataToInt = Int(data) else { return 0 }
         return dataToInt
     }
     
-    func inputString() -> String {
+    func inputString() -> String { // Inputs other than String are not allowed
         guard let data = readLine() else { return "" }
         return data
     }

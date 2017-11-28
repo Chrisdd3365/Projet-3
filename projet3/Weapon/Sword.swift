@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Sword: Weapon {
+class Sword: Weapon { // A sub-class which inherits from "Weapon" and associated with sub-class "Warrior"
     
     init() {
         super.init(damage: 10, magic: 0)

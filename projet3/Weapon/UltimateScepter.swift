@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UltimateScepter: Weapon {
+class UltimateScepter: Weapon { // A sub-class which inherits from "Weapon" and associated with sub-class "Mage". Created for the method "loot" in class "Game"
     
     init() {
         super.init(damage: 0, magic: 30)

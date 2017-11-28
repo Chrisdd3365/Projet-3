@@ -8,6 +8,8 @@
 
 import Foundation
 
+// To start a new game
+
 var newGame = Game()
 newGame.start()
 

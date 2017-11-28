@@ -8,23 +8,23 @@
 
 import Foundation
 
-class Mage: Character { // A super class named "Mage" to set things especially for this type of character
+class Mage: Character { // A sub-class which inherits from "Character"
     
     init(name: String, myTeam: Team) {
         super.init(characterName: name, characterClasse: "Mage", currentHealth: 70, weapon: Scepter())
     }
     
-    override func attack(targetEnnemy: Character) { // A mage can't attack in this game
+    override func attack(targetEnnemy: Character) { // An override method "attack" to avoid the Mage to attack because he can only heal his team
         print("I can't attack.")
         self.heal(targetAlly: targetEnnemy)
     }
     
-    func heal(targetAlly: Character) { // But a mage can heal in this game, thanks to this method named "heal"
+    func heal(targetAlly: Character) { // A method named "heal" for the sub-class "Mage"
         if targetAlly.currentHealth > 0 {
-            targetAlly.currentHealth += weapon.magic
+            targetAlly.currentHealth += weapon.magic // If the ally's target is alive, the mage can heal him
         }
         if targetAlly.currentHealth > targetAlly.maxHealth {
-            targetAlly.currentHealth = targetAlly.maxHealth
+            targetAlly.currentHealth = targetAlly.maxHealth // If the ally's target current health is more than his max health, his current health will stay at the same amount as his max health. To avoid overheal.
         }
     }
 }

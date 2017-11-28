@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UltimateWeapon: Weapon {
+class UltimateWeapon: Weapon { // A sub-class which inherits from "Weapon" and associated with sub-class "Warrior", "Dwarf" and "Giant". Created for the method "loot" in class "Game"
     
     init() {
         super.init(damage: 30, magic: 0)

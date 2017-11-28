@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Character { // A base class named "Character" to set things like name, classe, health, weapon and team associated to the characters
+class Character { // A base class to init parameters like "name", "classe", "health", "weapon" associated to the sub-class of "Character"
     
     var characterName: String
     var characterClasse: String
@@ -34,9 +34,9 @@ class Character { // A base class named "Character" to set things like name, cla
             + "")
     }
     
-    func attack(targetEnnemy: Character) { // A method named "attack" for characters who can deal damages during the game
+    func attack(targetEnnemy: Character) { // A method named "attack" for characters who can deal damage during the game
         targetEnnemy.currentHealth -= self.weapon.damage
-        if self.currentHealth < 0 {
+        if self.currentHealth < 0 { // To avoid the negative health issue and set the dead character's parameter
             self.currentHealth = 0
         }
     }

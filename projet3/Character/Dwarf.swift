@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Dwarf: Character { // A super class named "Dwarf" to set things especially for this type of character 
+class Dwarf: Character { // A sub-class which inherits from "Character"
    
     init(name: String, myTeam: Team) {
         super.init(characterName: name, characterClasse: "Dwarf", currentHealth: 80, weapon: Axe())

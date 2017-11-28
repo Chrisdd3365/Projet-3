@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Team { 
+class Team { // To init parameters like "name" of the team for the feature
     
     var name: String
     var characterArray = [Character]()
@@ -17,7 +17,8 @@ class Team {
         self.name = name
     }
     
-    func teamDescription() {
+    func teamDescription() { // To print the name of the team and to show the character's descriptions of each team during the game
+        
         print("==========================")
         print("Team's name: \(self.name) ")
         print("")

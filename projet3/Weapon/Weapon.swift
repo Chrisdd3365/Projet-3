@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Weapon {
+class Weapon { // To init parameters like "magic" for the mage and "damage" for the other 3 types of character
     
     var damage: Int
     var magic: Int
