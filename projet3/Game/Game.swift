@@ -294,13 +294,13 @@ class Game {
         }
     }
     
-    func inputInt() -> Int { // Inputs other than Integer are not allowed
+    func inputInt() -> Int { // Inputs of different type other than Integer are not allowed
         guard let data = readLine() else { return 0 }
         guard let dataToInt = Int(data) else { return 0 }
         return dataToInt
     }
     
-    func inputString() -> String { // Inputs other than String are not allowed
+    func inputString() -> String { // Inputs of different type other than String are not allowed
         guard let data = readLine() else { return "" }
         return data
     }
