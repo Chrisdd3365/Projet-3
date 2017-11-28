@@ -247,7 +247,7 @@ class Game {
                 stringError = stringError1
             }
             else {
-                if t.characterArray[userChoice-1].currentHealth <= 0 { // If the character is dead or if the target is dead, the player can't choose them and has to choose a character still alive
+                if t.characterArray[userChoice-1].currentHealth <= 0 { // If the character is dead or if the target(ally or ennemy) is dead, the player can't choose them and has to choose a character still alive
                     error = true
                     stringError = stringError2
                 }
