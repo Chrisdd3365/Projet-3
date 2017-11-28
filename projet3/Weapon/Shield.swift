@@ -11,6 +11,6 @@ import Foundation
 class Shield: Weapon {
     
     init() {
-        super.init(damage: 3)
+        super.init(damage: 3, magic: 0)
     }
 }

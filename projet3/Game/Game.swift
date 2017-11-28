@@ -11,26 +11,28 @@ import Foundation
 class Game {
     
     var teamsArray = [Team]()
-    var lootluck = 80 // Switch lootluck to 0 to have a 100% of treasure chest
     
     func start() { // Start a new game by creating two teams of 3 characters
         print("")
         print("=====================================================")
         print("Welcome and get ready for the next and deadly battle!")
         print("=====================================================")
+        
         for i in 0..<2 {
             createNewTeam(index: i)
             createNewTeamCharacters(index: i)
         }
         print("")
         print("The 2 teams are ready to fight!")
+        
         fight()
     }
     
     func createNewTeam(index: Int) { // Create a new team by typing an unique name for the player
         
-        var error: Bool = false
-        var nameTeam: String = ""
+        var error = false
+        var nameTeam = ""
+        
         repeat { // Create an unique name for the player
             if error == true {
                 print("")
@@ -44,14 +46,17 @@ class Game {
                 print("Please type the name for team N°\(index + 1): ")
                 print("==================================")
             }
+            
             nameTeam = inputString()
             error = false
+            
             for t in teamsArray {
                 if t.name == nameTeam {
                     error = true
                 }
             }
         } while error == true
+    
         teamsArray.append(Team(name: nameTeam))
     }
     
@@ -79,7 +84,9 @@ class Game {
                         +  "\n4. Dwarf, a character equipped with an axe, can deal great damage but low stamina")
                     print("====================================================================================")
                 }
+                
                 userChoice = inputInt()
+                
                 if userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 {
                     error = true
                 } else {
@@ -100,8 +107,10 @@ class Game {
                     print("Please type an unique character's name: ")
                     print("========================================")
                 }
+                
                 nameCharacter = inputString()
                 error = false
+                
                 for t in teamsArray {
                     for c in t.characterArray {
                         if  c.characterName == nameCharacter {
@@ -144,31 +153,33 @@ class Game {
                 print("It's your turn to play! ")
                 
                 choiceCharacter = self.chooseCharacter(t: teamsArray[i], typeOfAsk: "Please press 1 or 2 or 3 to choose a character to fight with: ")
+                
                 self.loot(character: choiceCharacter)
                 
                 if let mage = choiceCharacter as? Mage {
                     print("")
                     print("What character do you want to heal?")
                     print("")
+                    
                     choiceTarget = self.chooseCharacter(t: teamsArray[i], typeOfAsk: "Please press 1 or 2 or 3 to choose a character to heal: ")
-                    if choiceCharacter.weapon is UltimateScepter {
-                        print("")
-                        print("\(choiceCharacter.characterName) has healed \(choiceTarget.characterName) for \((choiceCharacter.weapon as! UltimateScepter).magic) points!  ")
-                    } else {
-                        print("")
-                        print("\(choiceCharacter.characterName) has healed \(choiceTarget.characterName) for \((choiceCharacter.weapon as! Scepter).magic) points!  ")
-                    }
+                    
+                    print("")
+                    print("\(choiceCharacter.characterName) has healed \(choiceTarget.characterName) for \(choiceCharacter.weapon.magic) points! ")
+                    
                     mage.heal(targetAlly: choiceTarget)
+                    
                     print("\(choiceTarget.characterName) has now \(choiceTarget.currentHealth) HP! ")
                 }
                 else {
                     print("")
                     print("What character do you want to attack?")
                     print("")
+                    
                     if i == 0 {
                         // Select a single target from team 2
                         choiceTarget = self.chooseCharacter(t: teamsArray[i + 1], typeOfAsk: "Please press 1 or 2 or 3 to choose a target: ")
                         choiceCharacter.attack(targetEnnemy: choiceTarget)
+                        
                         if choiceTarget.currentHealth <= 0 {
                             print("")
                             print("\(choiceTarget.characterName) is dead! ")
@@ -179,6 +190,7 @@ class Game {
                         // Select a single target from team 1
                         choiceTarget = self.chooseCharacter(t: teamsArray[i - 1], typeOfAsk: "Please press 1 or 2 or 3 to choose a target: ")
                         choiceCharacter.attack(targetEnnemy: choiceTarget)
+                        
                         if choiceTarget.currentHealth <= 0 {
                             print("")
                             print("\(choiceTarget.characterName) is dead! ")
@@ -195,6 +207,7 @@ class Game {
         } while deathCount1 != 3 && deathCount2 != 3
         
         var winnerName = ""
+        
         if deathCount1 == 3 {
             winnerName = teamsArray[1].name
         } else {
@@ -228,7 +241,9 @@ class Game {
                 print(stringError)
                 print("")
             }
+            
             userChoice = inputInt()
+            
             if userChoice != 1 && userChoice != 2 && userChoice != 3 {
                 error = true
                 stringError = stringError1
@@ -249,33 +264,31 @@ class Game {
     func loot(character: Character) { // Generate a random chest loot with a random weapon to a random player during the game
         
         let dice1 = arc4random_uniform(100) // Generate a random number to get a chest loot during the game
+        let lootluck = 80 // Switch lootluck to 0 to have a 100% of treasure chest
         
         if dice1 >= lootluck {
             
             var announcement = "You are lucky, a treasure chest appeared in front of you! "
-            let modif = 30
             
             if character is Mage {
                 let ultimateScepter = UltimateScepter()
                 if character.weapon is UltimateScepter {
                     print("")
-                    announcement += "\nIt's the Ultimate Scepter with \(modif) magic power! " + "\nBut you've already equipped it! "
+                    announcement += "\nIt's the Ultimate Scepter with \(character.weapon.magic) magic power! " + "\nBut you've already equipped it! "
                 } else {
                     character.weapon = ultimateScepter // Equip the ultimate scepter to the choosen mage
-                    ultimateScepter.magic = modif
-                    announcement += "\nIt's the Ultimate Scepter with \(modif) magic power!" + "\nYou've now equipped your new scepter! "
+                    announcement += "\nIt's the Ultimate Scepter with \(character.weapon.magic) magic power!" + "\nYou've now equipped your new scepter! "
                 }
             }
             else {
                 let ultimateWeapon = UltimateWeapon()
                 if character.weapon is UltimateWeapon {
                     print("")
-                    announcement += "\nIt's the Ultimate Weapon with \(modif) attack power!" + "\nBut you've already equipped it! "
+                    announcement += "\nIt's the Ultimate Weapon with \(character.weapon.damage) attack power!" + "\nBut you've already equipped it! "
                 }
                 else {
                     character.weapon = ultimateWeapon // Equip the ultimate weapon to the choosen character
-                    ultimateWeapon.damage = modif
-                    announcement += "\nIt's the Ultimate Weapon with \(modif) attack power!" + "\nYou've now equipped your new weapon! "
+                    announcement += "\nIt's the Ultimate Weapon with \(character.weapon.damage) attack power!" + "\nYou've now equipped your new weapon! "
                 }
             }
             print("")

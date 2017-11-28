@@ -11,6 +11,6 @@ import Foundation
 class UltimateWeapon: Weapon {
     
     init() {
-        super.init(damage: 30)
+        super.init(damage: 30, magic: 0)
     }
 }

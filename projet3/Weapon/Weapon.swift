@@ -11,7 +11,10 @@ import Foundation
 class Weapon {
     
     var damage: Int
-    init(damage: Int) {
+    var magic: Int
+    
+    init(damage: Int, magic: Int) {
         self.damage = damage
+        self.magic = magic
     }
 }

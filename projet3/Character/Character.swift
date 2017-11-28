@@ -28,9 +28,9 @@ class Character { // A base class named "Character" to set things like name, cla
         print("")
         print("=====================================================================")
         print("Character's name: \(self.characterName) "
-            + "Classe: \(characterClasse) "
-            + "HP: \(currentHealth)/\(maxHealth) "
-            + "Weapon's Damage: \(self.weapon.damage)"
+            + " Classe: \(characterClasse) "
+            + " HP: \(currentHealth)/\(maxHealth) "
+            + " Weapon's Damage: \(self.weapon.damage)"
             + "")
     }
     

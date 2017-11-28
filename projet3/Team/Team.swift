@@ -13,7 +13,6 @@ class Team {
     var name: String
     var characterArray = [Character]()
     
-
     init(name: String) {
         self.name = name
     }
@@ -22,6 +21,7 @@ class Team {
         print("==========================")
         print("Team's name: \(self.name) ")
         print("")
+        
         for c in characterArray {
             c.characterDescription()
         }

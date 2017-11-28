@@ -10,8 +10,7 @@ import Foundation
 
 class Scepter: Weapon {
     
-    var magic = 10
     init() {
-        super.init(damage: 0)
+        super.init(damage: 0, magic: 10)
     }
 }

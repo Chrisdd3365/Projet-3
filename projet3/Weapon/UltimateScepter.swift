@@ -10,8 +10,7 @@ import Foundation
 
 class UltimateScepter: Weapon {
     
-    var magic = 30
     init() {
-        super.init(damage: 0)
+        super.init(damage: 0, magic: 30)
     }
 }

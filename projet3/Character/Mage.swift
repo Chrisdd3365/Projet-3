@@ -21,12 +21,7 @@ class Mage: Character { // A super class named "Mage" to set things especially f
     
     func heal(targetAlly: Character) { // But a mage can heal in this game, thanks to this method named "heal"
         if targetAlly.currentHealth > 0 {
-            if weapon is Scepter {
-                targetAlly.currentHealth += (weapon as! Scepter).magic
-            }
-            else {
-                targetAlly.currentHealth += (weapon as! UltimateScepter).magic
-            }
+            targetAlly.currentHealth += weapon.magic
         }
         if targetAlly.currentHealth > targetAlly.maxHealth {
             targetAlly.currentHealth = targetAlly.maxHealth
