@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Game {
+class Game { // A base class to set the game itself
     
     var teamsArray = [Team]()
     
@@ -87,7 +87,8 @@ class Game {
                 
                 userChoice = inputInt()
                 
-                if userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 { // This conditionner checks if the player uses 1, 2, 3, 4 as valid input
+                // This conditionner checks if the player uses 1, 2, 3, 4 as valid input
+                if userChoice != 1 && userChoice != 2 && userChoice != 3 && userChoice != 4 {
                     error = true
                 } else {
                     error = false
@@ -137,7 +138,9 @@ class Game {
                 break
             }
         }
+        
     }
+    
     
     func fight() { // A method to set the fight during the game
         
@@ -202,7 +205,7 @@ class Game {
                 }
             }
             turn += 1 // Add "1" to the count of turn
-        } while deathCount1 != 3 && deathCount2 != 3 // Will reapeat until there are 3 dead characters of the same team
+        } while deathCount1 != 3 && deathCount2 != 3 // Will repeat until there are 3 dead characters of the same team
         
         var winnerName = ""
         // To announce the winner of the fight with the number of turns
@@ -241,13 +244,14 @@ class Game {
             }
             
             userChoice = inputInt()
-            
-            if userChoice != 1 && userChoice != 2 && userChoice != 3 { // If the player doesn't use 1,2,3 as valid input, then stringError 1 and invite again the player to use valid input
+            // If the player doesn't use 1,2,3 as valid input, then stringError 1 and invite again the player to use valid input
+            if userChoice != 1 && userChoice != 2 && userChoice != 3 {
                 error = true
                 stringError = stringError1
             }
             else {
-                if t.characterArray[userChoice-1].currentHealth <= 0 { // If the character is dead or if the target(ally or ennemy) is dead, the player can't choose them and has to choose a character still alive
+                // If the character is dead or if the target(ally or ennemy) is dead, the player can't choose them and has to choose a character still alive
+                if t.characterArray[userChoice-1].currentHealth <= 0 {
                     error = true
                     stringError = stringError2
                 }

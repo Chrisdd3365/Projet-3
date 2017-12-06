@@ -24,7 +24,8 @@ class Mage: Character { // A sub-class which inherits from "Character"
             targetAlly.currentHealth += weapon.magic // If the ally's target is alive, the mage can heal him
         }
         if targetAlly.currentHealth > targetAlly.maxHealth {
-            targetAlly.currentHealth = targetAlly.maxHealth // If the ally's target current health is more than his max health, his current health will stay at the same amount as his max health. To avoid overheal.
+            // If the ally's target current health is more than his max health, his current health will stay at the same amount as his max health. To avoid overheal.
+            targetAlly.currentHealth = targetAlly.maxHealth
         }
     }
 }
