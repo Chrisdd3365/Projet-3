@@ -12,7 +12,7 @@ class Game { // A base class to set the game itself
     
     var teamsArray = [Team]()
     
-    func start() { // Start a new game when both the players have finished to create their 2 teams of 3 characters
+    func start() { // Start a new game when both the players have to create their 2 teams of 3 characters
         print("")
         print("=====================================================")
         print("Welcome and get ready for the next and deadly battle!")
@@ -25,7 +25,7 @@ class Game { // A base class to set the game itself
         print("")
         print("The 2 teams are ready to fight!")
         
-        fight()
+        fight() // Start the game when both the players have finished to create their 2 teams of 3 characters
     }
     
     func createNewTeam(index: Int) { // Create a new team by typing an unique name for the team
@@ -112,8 +112,8 @@ class Game { // A base class to set the game itself
                 nameCharacter = inputString()
                 error = false
                 
-                for t in teamsArray { // This loop checks if the character's name is already used or not
-                    for c in t.characterArray {
+                for t in teamsArray {
+                    for c in t.characterArray { // This loop checks if the character's name is already used or not
                         if  c.characterName == nameCharacter {
                             error = true
                         }
@@ -138,9 +138,7 @@ class Game { // A base class to set the game itself
                 break
             }
         }
-        
     }
-    
     
     func fight() { // A method to set the fight during the game
         
@@ -205,7 +203,7 @@ class Game { // A base class to set the game itself
                 }
             }
             turn += 1 // Add "1" to the count of turn
-        } while deathCount1 != 3 && deathCount2 != 3 // Will repeat until there are 3 dead characters of the same team
+        } while deathCount1 != 3 && deathCount2 != 3 // Will repeat until there are 3 dead characters in the same team
         
         var winnerName = ""
         // To announce the winner of the fight with the number of turns
@@ -222,7 +220,7 @@ class Game { // A base class to set the game itself
         print("")
     }
     
-    func chooseCharacter(t: Team, typeOfAsk: String) -> Character { // A method created to permit the player to choose a character and a target during the fight
+    func chooseCharacter(t: Team, typeOfAsk: String) -> Character { // A method created to allow the player to choose a character and a target during the fight
         
         var userChoice = 0
         var error = false

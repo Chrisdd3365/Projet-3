@@ -16,7 +16,6 @@ class Mage: Character { // A sub-class which inherits from "Character"
     
     override func attack(targetEnnemy: Character) { // An override method "attack" to avoid the Mage to attack because he can only heal his team
         print("I can't attack.")
-        self.heal(targetAlly: targetEnnemy)
     }
     
     func heal(targetAlly: Character) { // A method named "heal" for the sub-class "Mage"

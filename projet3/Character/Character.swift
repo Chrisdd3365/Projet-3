@@ -10,8 +10,8 @@ import Foundation
 
 class Character { // A base class to init parameters like "name", "classe", "health", "weapon" associated to the sub-class of "Character"
     
-    var characterName: String
-    var characterClasse: String
+    let characterName: String
+    let characterClasse: String
     let maxHealth: Int
     var currentHealth: Int
     var weapon: Weapon

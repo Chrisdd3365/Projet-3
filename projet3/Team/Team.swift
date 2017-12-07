@@ -10,7 +10,7 @@ import Foundation
 
 class Team { // To init parameters like "name" of the team for the feature
     
-    var name: String
+    let name: String
     var characterArray = [Character]()
     
     init(name: String) {
