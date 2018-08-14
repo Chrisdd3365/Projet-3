@@ -26,7 +26,7 @@ class Character { // A base class to init parameters like "name", "classe", "hea
     
     func characterDescription() { // A method named "characterDescription" to get a complete description of a character
         print("")
-        print("=====================================================================")
+        print("======================================================================")
         print("Character's name: \(self.characterName) "
             + " Classe: \(characterClasse) "
             + " HP: \(currentHealth)/\(maxHealth) "
