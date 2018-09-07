@@ -56,7 +56,7 @@ class Game { // A base class to set the game itself
                 }
             }
         } while error == true // Will repeat until there is no error from the player
-    
+        
         teamsArray.append(Team(name: nameTeam)) // Add the team's name choosen by the player
     }
     
