@@ -219,7 +219,7 @@ class Game { // A base class to set the game itself
         print("=========================================================")
         print("")
     }
-    
+
     func chooseCharacter(t: Team, typeOfAsk: String) -> Character { // A method created to allow the player to choose a character and a target during the fight
         
         var userChoice = 0
